@@ -9,7 +9,7 @@ token = "Token"
 tid = "Telegram-ID"
 
 try:
-	 import os,sys,time,base64,codecs,itertools,requests,json,random,user_agent,colorama,re,threading
+	 import os,sys,time,base64,codecs,itertools,requests,json,random,user_agent,colorama,re,threading,uuid
 	 from user_agent import *
 	 from colorama import *
 except Exception as F:
@@ -27,6 +27,7 @@ except Exception as F:
 	os.system("pip install threading")
 	os.system("pip install base64")
 	os.system("pip install codecs")
+	os.system("pip install uuid")
 	pass
 
 os.system("clear")
@@ -128,144 +129,187 @@ def ttrpn():
 	done = 0
 	error = 0
 	import re as rep
-	rpurl = f'https://www.tiktok.com/@{trgt}?'
-	req0 = requests.get(rpurl).text
-	kr = rep.findall('"pageId":"(.*?)"', req0)
+	rpurl = f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1'
+	HeadersUserId = {
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+	'Accept-Encoding': 'gzip, deflate, br',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cache-Control': 'max-age=0',
+	'Connection': 'keep-alive',
+	'Cookie': 'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQjV4zVm9uYrl3AQAAZ6L8ywURQO1JkWzgk84A4ZwfDMQ8UVfOS3/KItiQLgE0yzyHhYexPZZ5w8hShvI35Zho1pF+Fo7uG6ueoSFw2gvlZB/g+zBikJciGupLJ720MaL8wb1/9ztrekyo5ObZG3kB1B0Vh+V70DGbWn9p3RzyFs5XlmTKuHlML/qwo4azpscxLg6aoMxxbO8tFMF4CBPIAoqikm3F9gtHCXPKcJ6hb4aesROJICXwac8oxfYKjQ2uzb/2gSYC+d3/sOdiZQCx1UTtNC33TQSP1bD/S+uSRPTsBj4YDXt22BlMluAJbbNmrI9Xc4v9hvhYdlitBOKDuI8jrw==~-1~-1~-1; MONITOR_WEB_ID=6931890936634443265; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrq9ZlK8Re3drCZiA+spFOHLAOFhaln9UU1z9Wa0C+Se2HasaD67JQmegmFvO7ZU7fc=',
+	'Host': 'www.tiktok.com',
+	'Sec-Fetch-Dest': 'document',
+	'Sec-Fetch-Mode': 'navigate',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-User': '?1',
+	'Upgrade-Insecure-Requests': '1',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
+	}
+	ReqForUserId = requests.get(rpurl,headers=HeadersUserId).text
+	kr = rep.findall('"seoProps":{"pageId":"(.*?)"', ReqForUserId)
 	rk = "".join(kr)
 	
-	url = 'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&root_referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&user_agent=Mozilla%2F5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=ar&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=Asia%2FRiyadh&page_referer=https:%2F%2Fwww.tiktok.com%2F&priority_region=&verifyFp=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=windows&did=6926024599109109250'
+	url = f'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=&root_referer=https:%2F%2Fwww.tiktok.com%2F%40{trgt}%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&user_agent=Mozilla%2F5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=en-US&browser_platform=Linux+x86_64&browser_name=Mozilla&browser_version=5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=America%2FNew_York&page_referer=https:%2F%2Fwww.tiktok.com%2F%40ksgf%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&priority_region=SA&verifyFp=verify_0cddbd837c6e0df451b5cf3cf6ff5182&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=linux&did=6931890936634443265&tt-web-region=SA&uid=6930581757486040066'
 	
 	headers = {
-'Connection': 'close',
-'Content-Length': '102',
-'Accept': 'application/json, text/plain, */*',
-'x-secsdk-csrf-token': '00010000000162d3cecd4226704af4882c9300265af10bf186453cf3514caaa4e1e991b9bb8f1661ca3c679cdcb8',
-'tt-csrf-token': 'f1_VMFyM18-uBgTG9vJC4eD9',
-'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
-'Content-Type': 'application/json',
-'Origin': 'https://www.tiktok.com',
-'Sec-Fetch-Site': 'same-origin',
-'Sec-Fetch-Mode': 'cors',
-'Sec-Fetch-Dest': 'empty',
-'Referer': f'https://www.tiktok.com/@{trgt}?',
-'Accept-Encoding': 'gzip, deflate',
-'Accept-Language': 'ar,en-US;q=0.9,en;q=0.8',
-'Cookie': f'tt_webid_v2=6926024599109109250; tt_webid=6926024599109109250; s_v_web_id=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4; ttwid=1%7CuU0ZIsyDyN3VZI2n8WRgeKbCOnBi7rzo0O5ubfexN7c%7C1612590836%7C1c5cb49ee5e8f958b35190103ce1ea37891a648dc344853098c36dd9d798f52b; passport_csrf_token=abd11d0de6008199789a3435e8e75597; passport_csrf_token_default=abd11d0de6008199789a3435e8e75597; store-idc=alisg; store-country-code=sa; passport_auth_status=0a5f55489be7d62253f3cc65c0176ba7%2C; passport_auth_status_ss=0a5f55489be7d62253f3cc65c0176ba7%2C; MONITOR_WEB_ID=6926024599109109250; tt_csrf_token=f1_VMFyM18-uBgTG9vJC4eD9; bm_sz=143417F305F360FB0118C9BADE7BD751~YAAQjV4zVhlsoSF3AQAAv67rgQp7ED9jt5NvYj0Ucri/yBeUyvmRkXcWi2eDHYlHW0wpTwESpPnRXxmkYoW9E/KsNiBqI3UFBuNuXG8UOGOC9d7sFMXmUiVbSkOLf7FjoExOOKL15LPj9uUrOzv5cjtbAffAyPr5BFlNSEqKlnI2dwVvaO/ePjTmPnI8bRVu; ak_bmsc=534206A79B77FE79273D9A7EDC9A593656335E8DE03500007A422160402E1D27~plCNWzOvH1A2FC/nkj4wbm+3SEkDFTrcuF7EmFJUevnxPG7gnA4ztz2BFY2U++v3cWIrbhUxvzZ7VbqU8MLEBjvV2tpMRzjpto54ZD11kQQVJPNvVJAg290g0zBDg8h7vzNtnxNUSwfbY/uczRYON/eKHv+vlVQpGCwbS2QuJ1IJ1SaZ3Tn8KAm/qHeC0AsEF0qLAjbHZ6oeGZkIqQ8549ttsjOGcJf1Z/r21z2ryGnL9bX7aSXbYf55hUs4jjhzw6; csrf_session_id=16de1c6bebf44bdead22d2a860b981cd; _abck=D86CAAA87344DFBC4EA1879ADDCFE240~0~YAAQjV4zViNsoSF3AQAAdsHrgQVhd7nYpEMGPi1mK5lzZpDkUsMCjvl3o7uhtT3194A91L7VlK360ixfuIC7JnpEuuauV1zk4CpHFWmYUgq0chJ14MzzdOMkP+KaUy5KWvBRNbGCXGdNMbCNlkL2Ypwpf6mH1iB5JXMOIQJvUaD8093tadn10craGz62WtISTA16J+wVZMAG61jf151t0lrHRUqCCvGhr8g+cKjoB7rdauEahG0SKMb6QC09vh54gB10JeHmUE/Um53B89EdIn7eba5Zh/TZDeXmTId1+53YOP2vNbjdwBO9V3iNRMmzmcE+gGiL3y53vU+skPPCRcXXZgcRvQ==~-1~||-1||~-1; odin_tt=d548bc753bf1eac32a0b0a9f32d043a91be2495da855b354bdcc396dedd60c5ae8ec9937c9a5870fe89c921bf91cfcd22a125cdd27c9b9fa046d84bb5a679487; sid_guard={sessionId}%7C1612792499%7C21600%7CMon%2C+08-Feb-2021+19%3A54%3A59+GMT; uid_tt=cbfd8822d841fcee65012a2b9c00aab2; uid_tt_ss=cbfd8822d841fcee65012a2b9c00aab2; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; bm_sv=5D1B8F7463695E34985F3CB65EE23F72~3Zi09KhBoTVy0gcp7krXeiYcspfhEbPvBWKW53O2BQvC3tKeCoSY2t2p/RxkRBPkmQztk7pJFupkN0nepmaXCeXhBAHGLRahhEdtUvKK2zqnTEfBErg8WZCSDbDKU9RoAjxIv3tHcoNd44xdqMv6/irOZXpwGhCdXaPXSrGpsc4='
+	'Connection': 'close',
+	'Content-Length': '102',
+	'Accept': 'application/json, text/plain, */*',
+	'x-secsdk-csrf-token': '0001000000012a8f40f370c5ae099b1a65c576cb480f5d1706c0dfdd8c7991aa1929ad3cbadc166634f9de3b1a91',
+	'tt-csrf-token': '4uNJGBn_ZzXhHYhSj3HbIQN0',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+	'Content-Type': 'application/json',
+	'Origin': 'https://www.tiktok.com',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-Mode': 'cors',
+	'Sec-Fetch-Dest': 'empty',
+	'Referer': f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1',
+	'Accept-Encoding': 'gzip, deflate',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cookie': f'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; odin_tt=13ca4edd431b0cf63c4cf86df8117cc220963d5fe1adedc5b500e7bdedf3281b8880fe15f8487e809a4d2fbb459d4414b01735214e3ff40088000c4c3e772c38; cmpl_token=AgQQAPO_F-RO0rAQscT18N07-lKfJyxHv4M0YPnghw; sid_guard=0b7a2b62465ddd997a9408dfcef155bd%7C1614035758%7C5184000%7CFri%2C+23-Apr-2021+23%3A15%3A58+GMT; uid_tt=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; uid_tt_ss=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; store-idc=alisg; store-country-code=sa; MONITOR_WEB_ID=6931890936634443265; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQdl4zVqcjlxp3AQAAYlAHzAUjprjMKVgW9hYArMReESRNrOWghue/S82JLQDy6Yt4SMqEzaK/+OkeEB6LBi/FpP9iPwkr2dk1dl64fJ0Qjye/oyJmvT1Drx8gLEd4bJWKtJbyIpfqt16nj1uHjVrX/gDeHJhUF1FBJQBwr7HXF/lOcOsIhCcUV27jYgFRHxW875U26ln50PfEXXNmJLaSFwo1GtVBjmXYAn6jbCmXVLcxaU1PfTvO1d8KghoBLmDA85BeHCmaA3wNqKB+ieHpldwgE6hqbJzmFjTu2vvTtFdKQ4OYsUhxYfphxfJVLfC2Bp17sC/A5QRQuOFivRs4rgMiPg==~-1~||-1||~-1; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrqG9F5wNfjI+qwlzFKlwN77Zz6bOsK6uMIY8knC4Fc4HQ7JrCffU/7v2IZlbIh59yM='
 	}
 	data ={
-'object_id': rk,
-'owner_id': rk,
-'reason': '310',
-'report_type': "user"
+	'object_id': rk,
+	'owner_id': rk,
+	'reason': '306',
+	'report_type': "user"
 	}
 	count = 0
 	while True:
+		time.sleep(slep)
 		rq = requests.post(url, json=data, headers=headers).text
-		if '{"statusCode":0,"body":{"statusCode":0,"errMsg":"نشكرك على ملاحظاتك"},"errMsg":"نشكرك على ملاحظاتك"}' in rq:
-			count +=1
-			done += 1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
-			time.sleep(slep)
+		if '"errMsg":"Thanks for your feedback"' in rq:
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{g} Done ✓{res}")
+		elif '{"statusCode":1,"errMsg":"parmas Missing"}' in rq:
+			raise Exception;(f"{Style.BRIGHT}{wh}{b}[{wh}{re}!{b}]{wh} {re}Failed ✘{re} ❯{wh}❯{b}❯{wh} Invalid inputs{res}")
 		else:
-			count +=1
-			error += 1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{re} Failed ✘{res}")
 
-def ttrph():
+def ttrpn():
 	done = 0
 	error = 0
 	import re as rep
-	rpurl = f'https://www.tiktok.com/@{trgt}?'
-	req0 = requests.get(rpurl).text
-	kr = rep.findall('"pageId":"(.*?)"', req0)
+	rpurl = f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1'
+	HeadersUserId = {
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+	'Accept-Encoding': 'gzip, deflate, br',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cache-Control': 'max-age=0',
+	'Connection': 'keep-alive',
+	'Cookie': 'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQjV4zVm9uYrl3AQAAZ6L8ywURQO1JkWzgk84A4ZwfDMQ8UVfOS3/KItiQLgE0yzyHhYexPZZ5w8hShvI35Zho1pF+Fo7uG6ueoSFw2gvlZB/g+zBikJciGupLJ720MaL8wb1/9ztrekyo5ObZG3kB1B0Vh+V70DGbWn9p3RzyFs5XlmTKuHlML/qwo4azpscxLg6aoMxxbO8tFMF4CBPIAoqikm3F9gtHCXPKcJ6hb4aesROJICXwac8oxfYKjQ2uzb/2gSYC+d3/sOdiZQCx1UTtNC33TQSP1bD/S+uSRPTsBj4YDXt22BlMluAJbbNmrI9Xc4v9hvhYdlitBOKDuI8jrw==~-1~-1~-1; MONITOR_WEB_ID=6931890936634443265; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrq9ZlK8Re3drCZiA+spFOHLAOFhaln9UU1z9Wa0C+Se2HasaD67JQmegmFvO7ZU7fc=',
+	'Host': 'www.tiktok.com',
+	'Sec-Fetch-Dest': 'document',
+	'Sec-Fetch-Mode': 'navigate',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-User': '?1',
+	'Upgrade-Insecure-Requests': '1',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
+	}
+	ReqForUserId = requests.get(rpurl,headers=HeadersUserId).text
+	kr = rep.findall('"seoProps":{"pageId":"(.*?)"', ReqForUserId)
 	rk = "".join(kr)
 	
-	url = 'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&root_referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&user_agent=Mozilla%2F5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=ar&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=Asia%2FRiyadh&page_referer=https:%2F%2Fwww.tiktok.com%2F&priority_region=&verifyFp=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=windows&did=6926024599109109250'
+	url = f'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=&root_referer=https:%2F%2Fwww.tiktok.com%2F%40{trgt}%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&user_agent=Mozilla%2F5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=en-US&browser_platform=Linux+x86_64&browser_name=Mozilla&browser_version=5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=America%2FNew_York&page_referer=https:%2F%2Fwww.tiktok.com%2F%40ksgf%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&priority_region=SA&verifyFp=verify_0cddbd837c6e0df451b5cf3cf6ff5182&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=linux&did=6931890936634443265&tt-web-region=SA&uid=6930581757486040066'
 	
 	headers = {
-'Connection': 'close',
-'Content-Length': '102',
-'Accept': 'application/json, text/plain, */*',
-'x-secsdk-csrf-token': '00010000000162d3cecd4226704af4882c9300265af10bf186453cf3514caaa4e1e991b9bb8f1661ca3c679cdcb8',
-'tt-csrf-token': 'f1_VMFyM18-uBgTG9vJC4eD9',
-'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
-'Content-Type': 'application/json',
-'Origin': 'https://www.tiktok.com',
-'Sec-Fetch-Site': 'same-origin',
-'Sec-Fetch-Mode': 'cors',
-'Sec-Fetch-Dest': 'empty',
-'Referer': f'https://www.tiktok.com/@{trgt}?',
-'Accept-Encoding': 'gzip, deflate',
-'Accept-Language': 'ar,en-US;q=0.9,en;q=0.8',
-'Cookie': f'tt_webid_v2=6926024599109109250; tt_webid=6926024599109109250; s_v_web_id=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4; ttwid=1%7CuU0ZIsyDyN3VZI2n8WRgeKbCOnBi7rzo0O5ubfexN7c%7C1612590836%7C1c5cb49ee5e8f958b35190103ce1ea37891a648dc344853098c36dd9d798f52b; passport_csrf_token=abd11d0de6008199789a3435e8e75597; passport_csrf_token_default=abd11d0de6008199789a3435e8e75597; store-idc=alisg; store-country-code=sa; passport_auth_status=0a5f55489be7d62253f3cc65c0176ba7%2C; passport_auth_status_ss=0a5f55489be7d62253f3cc65c0176ba7%2C; MONITOR_WEB_ID=6926024599109109250; tt_csrf_token=f1_VMFyM18-uBgTG9vJC4eD9; bm_sz=143417F305F360FB0118C9BADE7BD751~YAAQjV4zVhlsoSF3AQAAv67rgQp7ED9jt5NvYj0Ucri/yBeUyvmRkXcWi2eDHYlHW0wpTwESpPnRXxmkYoW9E/KsNiBqI3UFBuNuXG8UOGOC9d7sFMXmUiVbSkOLf7FjoExOOKL15LPj9uUrOzv5cjtbAffAyPr5BFlNSEqKlnI2dwVvaO/ePjTmPnI8bRVu; ak_bmsc=534206A79B77FE79273D9A7EDC9A593656335E8DE03500007A422160402E1D27~plCNWzOvH1A2FC/nkj4wbm+3SEkDFTrcuF7EmFJUevnxPG7gnA4ztz2BFY2U++v3cWIrbhUxvzZ7VbqU8MLEBjvV2tpMRzjpto54ZD11kQQVJPNvVJAg290g0zBDg8h7vzNtnxNUSwfbY/uczRYON/eKHv+vlVQpGCwbS2QuJ1IJ1SaZ3Tn8KAm/qHeC0AsEF0qLAjbHZ6oeGZkIqQ8549ttsjOGcJf1Z/r21z2ryGnL9bX7aSXbYf55hUs4jjhzw6; csrf_session_id=16de1c6bebf44bdead22d2a860b981cd; _abck=D86CAAA87344DFBC4EA1879ADDCFE240~0~YAAQjV4zViNsoSF3AQAAdsHrgQVhd7nYpEMGPi1mK5lzZpDkUsMCjvl3o7uhtT3194A91L7VlK360ixfuIC7JnpEuuauV1zk4CpHFWmYUgq0chJ14MzzdOMkP+KaUy5KWvBRNbGCXGdNMbCNlkL2Ypwpf6mH1iB5JXMOIQJvUaD8093tadn10craGz62WtISTA16J+wVZMAG61jf151t0lrHRUqCCvGhr8g+cKjoB7rdauEahG0SKMb6QC09vh54gB10JeHmUE/Um53B89EdIn7eba5Zh/TZDeXmTId1+53YOP2vNbjdwBO9V3iNRMmzmcE+gGiL3y53vU+skPPCRcXXZgcRvQ==~-1~||-1||~-1; odin_tt=d548bc753bf1eac32a0b0a9f32d043a91be2495da855b354bdcc396dedd60c5ae8ec9937c9a5870fe89c921bf91cfcd22a125cdd27c9b9fa046d84bb5a679487; sid_guard={sessionId}%7C1612792499%7C21600%7CMon%2C+08-Feb-2021+19%3A54%3A59+GMT; uid_tt=cbfd8822d841fcee65012a2b9c00aab2; uid_tt_ss=cbfd8822d841fcee65012a2b9c00aab2; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; bm_sv=5D1B8F7463695E34985F3CB65EE23F72~3Zi09KhBoTVy0gcp7krXeiYcspfhEbPvBWKW53O2BQvC3tKeCoSY2t2p/RxkRBPkmQztk7pJFupkN0nepmaXCeXhBAHGLRahhEdtUvKK2zqnTEfBErg8WZCSDbDKU9RoAjxIv3tHcoNd44xdqMv6/irOZXpwGhCdXaPXSrGpsc4='
+	'Connection': 'close',
+	'Content-Length': '102',
+	'Accept': 'application/json, text/plain, */*',
+	'x-secsdk-csrf-token': '0001000000012a8f40f370c5ae099b1a65c576cb480f5d1706c0dfdd8c7991aa1929ad3cbadc166634f9de3b1a91',
+	'tt-csrf-token': '4uNJGBn_ZzXhHYhSj3HbIQN0',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+	'Content-Type': 'application/json',
+	'Origin': 'https://www.tiktok.com',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-Mode': 'cors',
+	'Sec-Fetch-Dest': 'empty',
+	'Referer': f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1',
+	'Accept-Encoding': 'gzip, deflate',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cookie': f'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; odin_tt=13ca4edd431b0cf63c4cf86df8117cc220963d5fe1adedc5b500e7bdedf3281b8880fe15f8487e809a4d2fbb459d4414b01735214e3ff40088000c4c3e772c38; cmpl_token=AgQQAPO_F-RO0rAQscT18N07-lKfJyxHv4M0YPnghw; sid_guard=0b7a2b62465ddd997a9408dfcef155bd%7C1614035758%7C5184000%7CFri%2C+23-Apr-2021+23%3A15%3A58+GMT; uid_tt=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; uid_tt_ss=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; store-idc=alisg; store-country-code=sa; MONITOR_WEB_ID=6931890936634443265; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQdl4zVqcjlxp3AQAAYlAHzAUjprjMKVgW9hYArMReESRNrOWghue/S82JLQDy6Yt4SMqEzaK/+OkeEB6LBi/FpP9iPwkr2dk1dl64fJ0Qjye/oyJmvT1Drx8gLEd4bJWKtJbyIpfqt16nj1uHjVrX/gDeHJhUF1FBJQBwr7HXF/lOcOsIhCcUV27jYgFRHxW875U26ln50PfEXXNmJLaSFwo1GtVBjmXYAn6jbCmXVLcxaU1PfTvO1d8KghoBLmDA85BeHCmaA3wNqKB+ieHpldwgE6hqbJzmFjTu2vvTtFdKQ4OYsUhxYfphxfJVLfC2Bp17sC/A5QRQuOFivRs4rgMiPg==~-1~||-1||~-1; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrqG9F5wNfjI+qwlzFKlwN77Zz6bOsK6uMIY8knC4Fc4HQ7JrCffU/7v2IZlbIh59yM='
 	}
 	data ={
-'object_id': rk,
-'owner_id': rk,
-'reason': '306',
-'report_type': "user"
+	'object_id': rk,
+	'owner_id': rk,
+	'reason': '310',
+	'report_type': "user"
 	}
 	count = 0
 	while True:
+		time.sleep(slep)
 		rq = requests.post(url, json=data, headers=headers).text
-		if '{"statusCode":0,"body":{"statusCode":0,"errMsg":"نشكرك على ملاحظاتك"},"errMsg":"نشكرك على ملاحظاتك"}' in rq:
-			count +=1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
-			time.sleep(slep)
+		if '"errMsg":"Thanks for your feedback"' in rq:
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{g} Done ✓{res}")
+		elif '{"statusCode":1,"errMsg":"parmas Missing"}' in rq:
+			raise Exception;(f"{Style.BRIGHT}{wh}{b}[{wh}{re}!{b}]{wh} {re}Failed ✘{re} ❯{wh}❯{b}❯{wh} Invalid inputs{res}")
 		else:
-			count +=1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{re} Failed ✘{res}")
 
-def ttrps():
+def ttrpn():
 	done = 0
 	error = 0
 	import re as rep
-	rpurl = f'https://www.tiktok.com/@{trgt}?'
-	req0 = requests.get(rpurl).text
-	kr = rep.findall('"pageId":"(.*?)"', req0)
+	rpurl = f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1'
+	HeadersUserId = {
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+	'Accept-Encoding': 'gzip, deflate, br',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cache-Control': 'max-age=0',
+	'Connection': 'keep-alive',
+	'Cookie': 'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQjV4zVm9uYrl3AQAAZ6L8ywURQO1JkWzgk84A4ZwfDMQ8UVfOS3/KItiQLgE0yzyHhYexPZZ5w8hShvI35Zho1pF+Fo7uG6ueoSFw2gvlZB/g+zBikJciGupLJ720MaL8wb1/9ztrekyo5ObZG3kB1B0Vh+V70DGbWn9p3RzyFs5XlmTKuHlML/qwo4azpscxLg6aoMxxbO8tFMF4CBPIAoqikm3F9gtHCXPKcJ6hb4aesROJICXwac8oxfYKjQ2uzb/2gSYC+d3/sOdiZQCx1UTtNC33TQSP1bD/S+uSRPTsBj4YDXt22BlMluAJbbNmrI9Xc4v9hvhYdlitBOKDuI8jrw==~-1~-1~-1; MONITOR_WEB_ID=6931890936634443265; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrq9ZlK8Re3drCZiA+spFOHLAOFhaln9UU1z9Wa0C+Se2HasaD67JQmegmFvO7ZU7fc=',
+	'Host': 'www.tiktok.com',
+	'Sec-Fetch-Dest': 'document',
+	'Sec-Fetch-Mode': 'navigate',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-User': '?1',
+	'Upgrade-Insecure-Requests': '1',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
+	}
+	ReqForUserId = requests.get(rpurl,headers=HeadersUserId).text
+	kr = rep.findall('"seoProps":{"pageId":"(.*?)"', ReqForUserId)
 	rk = "".join(kr)
 	
-	url = 'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&root_referer=https:%2F%2Fwww.tiktok.com%2Flogout%3Fredirect_url%3Dhttps%253A%252F%252Fwww.tiktok.com%252F%26lang%3Dar&user_agent=Mozilla%2F5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=ar&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=Asia%2FRiyadh&page_referer=https:%2F%2Fwww.tiktok.com%2F&priority_region=&verifyFp=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=windows&did=6926024599109109250'
+	url = f'https://www.tiktok.com/node/report/reasons_put?aid=1988&app_name=tiktok_web&device_platform=web&referer=&root_referer=https:%2F%2Fwww.tiktok.com%2F%40{trgt}%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&user_agent=Mozilla%2F5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&cookie_enabled=true&screen_width=1366&screen_height=768&browser_language=en-US&browser_platform=Linux+x86_64&browser_name=Mozilla&browser_version=5.0+(X11%3B+Linux+x86_64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F88.0.4324.150+Safari%2F537.36&browser_online=true&ac=4g&timezone_name=America%2FNew_York&page_referer=https:%2F%2Fwww.tiktok.com%2F%40ksgf%3Fis_copy_url%3D1%26is_from_webapp%3Dv1&priority_region=SA&verifyFp=verify_0cddbd837c6e0df451b5cf3cf6ff5182&appId=1233&region=SA&appType=m&isAndroid=false&isMobile=false&isIOS=false&OS=linux&did=6931890936634443265&tt-web-region=SA&uid=6930581757486040066'
 	
 	headers = {
-'Connection': 'close',
-'Content-Length': '102',
-'Accept': 'application/json, text/plain, */*',
-'x-secsdk-csrf-token': '00010000000162d3cecd4226704af4882c9300265af10bf186453cf3514caaa4e1e991b9bb8f1661ca3c679cdcb8',
-'tt-csrf-token': 'f1_VMFyM18-uBgTG9vJC4eD9',
-'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
-'Content-Type': 'application/json',
-'Origin': 'https://www.tiktok.com',
-'Sec-Fetch-Site': 'same-origin',
-'Sec-Fetch-Mode': 'cors',
-'Sec-Fetch-Dest': 'empty',
-'Referer': f'https://www.tiktok.com/@{trgt}?',
-'Accept-Encoding': 'gzip, deflate',
-'Accept-Language': 'ar,en-US;q=0.9,en;q=0.8',
-'Cookie': f'tt_webid_v2=6926024599109109250; tt_webid=6926024599109109250; s_v_web_id=verify_kktawy8t_4JksVm1Z_b02R_4OZw_8Xow_ltbTSgi07rs4; ttwid=1%7CuU0ZIsyDyN3VZI2n8WRgeKbCOnBi7rzo0O5ubfexN7c%7C1612590836%7C1c5cb49ee5e8f958b35190103ce1ea37891a648dc344853098c36dd9d798f52b; passport_csrf_token=abd11d0de6008199789a3435e8e75597; passport_csrf_token_default=abd11d0de6008199789a3435e8e75597; store-idc=alisg; store-country-code=sa; passport_auth_status=0a5f55489be7d62253f3cc65c0176ba7%2C; passport_auth_status_ss=0a5f55489be7d62253f3cc65c0176ba7%2C; MONITOR_WEB_ID=6926024599109109250; tt_csrf_token=f1_VMFyM18-uBgTG9vJC4eD9; bm_sz=143417F305F360FB0118C9BADE7BD751~YAAQjV4zVhlsoSF3AQAAv67rgQp7ED9jt5NvYj0Ucri/yBeUyvmRkXcWi2eDHYlHW0wpTwESpPnRXxmkYoW9E/KsNiBqI3UFBuNuXG8UOGOC9d7sFMXmUiVbSkOLf7FjoExOOKL15LPj9uUrOzv5cjtbAffAyPr5BFlNSEqKlnI2dwVvaO/ePjTmPnI8bRVu; ak_bmsc=534206A79B77FE79273D9A7EDC9A593656335E8DE03500007A422160402E1D27~plCNWzOvH1A2FC/nkj4wbm+3SEkDFTrcuF7EmFJUevnxPG7gnA4ztz2BFY2U++v3cWIrbhUxvzZ7VbqU8MLEBjvV2tpMRzjpto54ZD11kQQVJPNvVJAg290g0zBDg8h7vzNtnxNUSwfbY/uczRYON/eKHv+vlVQpGCwbS2QuJ1IJ1SaZ3Tn8KAm/qHeC0AsEF0qLAjbHZ6oeGZkIqQ8549ttsjOGcJf1Z/r21z2ryGnL9bX7aSXbYf55hUs4jjhzw6; csrf_session_id=16de1c6bebf44bdead22d2a860b981cd; _abck=D86CAAA87344DFBC4EA1879ADDCFE240~0~YAAQjV4zViNsoSF3AQAAdsHrgQVhd7nYpEMGPi1mK5lzZpDkUsMCjvl3o7uhtT3194A91L7VlK360ixfuIC7JnpEuuauV1zk4CpHFWmYUgq0chJ14MzzdOMkP+KaUy5KWvBRNbGCXGdNMbCNlkL2Ypwpf6mH1iB5JXMOIQJvUaD8093tadn10craGz62WtISTA16J+wVZMAG61jf151t0lrHRUqCCvGhr8g+cKjoB7rdauEahG0SKMb6QC09vh54gB10JeHmUE/Um53B89EdIn7eba5Zh/TZDeXmTId1+53YOP2vNbjdwBO9V3iNRMmzmcE+gGiL3y53vU+skPPCRcXXZgcRvQ==~-1~||-1||~-1; odin_tt=d548bc753bf1eac32a0b0a9f32d043a91be2495da855b354bdcc396dedd60c5ae8ec9937c9a5870fe89c921bf91cfcd22a125cdd27c9b9fa046d84bb5a679487; sid_guard={sessionId}%7C1612792499%7C21600%7CMon%2C+08-Feb-2021+19%3A54%3A59+GMT; uid_tt=cbfd8822d841fcee65012a2b9c00aab2; uid_tt_ss=cbfd8822d841fcee65012a2b9c00aab2; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; bm_sv=5D1B8F7463695E34985F3CB65EE23F72~3Zi09KhBoTVy0gcp7krXeiYcspfhEbPvBWKW53O2BQvC3tKeCoSY2t2p/RxkRBPkmQztk7pJFupkN0nepmaXCeXhBAHGLRahhEdtUvKK2zqnTEfBErg8WZCSDbDKU9RoAjxIv3tHcoNd44xdqMv6/irOZXpwGhCdXaPXSrGpsc4='
+	'Connection': 'close',
+	'Content-Length': '102',
+	'Accept': 'application/json, text/plain, */*',
+	'x-secsdk-csrf-token': '0001000000012a8f40f370c5ae099b1a65c576cb480f5d1706c0dfdd8c7991aa1929ad3cbadc166634f9de3b1a91',
+	'tt-csrf-token': '4uNJGBn_ZzXhHYhSj3HbIQN0',
+	'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+	'Content-Type': 'application/json',
+	'Origin': 'https://www.tiktok.com',
+	'Sec-Fetch-Site': 'same-origin',
+	'Sec-Fetch-Mode': 'cors',
+	'Sec-Fetch-Dest': 'empty',
+	'Referer': f'https://www.tiktok.com/@{trgt}?is_copy_url=1&is_from_webapp=v1',
+	'Accept-Encoding': 'gzip, deflate',
+	'Accept-Language': 'en-US,en;q=0.9',
+	'Cookie': f'tt_webid_v2=6931890936634443265; tt_webid=6931890936634443265; s_v_web_id=verify_0cddbd837c6e0df451b5cf3cf6ff5182; tt_csrf_token=4uNJGBn_ZzXhHYhSj3HbIQN0; bm_sz=6EF8376E5CFB32C01ECE75A0FA3C368D~YAAQl14zVviROxx3AQAAV4r4ywq5vtEk3rtDacDlheJxT03p4N1pg85sGK77KNKXfMOdbbluR4LkSMxoO/Gid5RizfsKYTW95j1ohsm+hvv4WiTWuI3Y/AmkvbX4IwbAXIRt96ajgIBthfsVZbZO8Dv7ovFmusOiw/8V6/x+U9P8elBMk2E9kbSQ5lekNFfG; csrf_session_id=2ee5d5b530b24bb28efbd674f0c8c88d; ak_bmsc=708DF909DAA3A8B972B9DE1C6303581156335E973B4200006F373460CEEDD27D~plZGd4T0oSlOh6wPNBFPeKMGOE6ZjQIGvTs9w2/7bfAh5hTH99sQPFqP9B9Dq9PG6RHTcnpl4mk03X9laadSVAhVFnNgEnz3NJvipdEPm8Mzfx3D5udHaQDInSt03uKImS72kIcvJB3Z0qsXMvfRKK0LKBD+XJ09MJhErybjt+OjDsz8zSm3/uiDJouHEjSfr/XWzH7jO6WawOfHpaIVGiA9UQnLrKA0Mhd2plCEdAraUeBLqAgAprdaI6MNyuykLK; ttwid=1%7CWf1epqHAd8sW5357XF9Dyy5P1xfJTD0lq_ycAc6mBwg%7C1614034971%7C942ab2f27a5f118fbc2e0793c7b9651a0617459cf422c9e3a1e4811fdea20217; passport_csrf_token=858080cf8140c4c62acba7ba040b8b83; passport_csrf_token_default=858080cf8140c4c62acba7ba040b8b83; odin_tt=13ca4edd431b0cf63c4cf86df8117cc220963d5fe1adedc5b500e7bdedf3281b8880fe15f8487e809a4d2fbb459d4414b01735214e3ff40088000c4c3e772c38; cmpl_token=AgQQAPO_F-RO0rAQscT18N07-lKfJyxHv4M0YPnghw; sid_guard=0b7a2b62465ddd997a9408dfcef155bd%7C1614035758%7C5184000%7CFri%2C+23-Apr-2021+23%3A15%3A58+GMT; uid_tt=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; uid_tt_ss=d4a0bb253cee8e0f0f887060869e55d04e225dca4da90fb5ce3380b50913c4cb; sid_tt={sessionId}; sessionid={sessionId}; sessionid_ss={sessionId}; store-idc=alisg; store-country-code=sa; MONITOR_WEB_ID=6931890936634443265; _abck=B32AAB6B88AFAD7EDD5F8F43238D6289~0~YAAQdl4zVqcjlxp3AQAAYlAHzAUjprjMKVgW9hYArMReESRNrOWghue/S82JLQDy6Yt4SMqEzaK/+OkeEB6LBi/FpP9iPwkr2dk1dl64fJ0Qjye/oyJmvT1Drx8gLEd4bJWKtJbyIpfqt16nj1uHjVrX/gDeHJhUF1FBJQBwr7HXF/lOcOsIhCcUV27jYgFRHxW875U26ln50PfEXXNmJLaSFwo1GtVBjmXYAn6jbCmXVLcxaU1PfTvO1d8KghoBLmDA85BeHCmaA3wNqKB+ieHpldwgE6hqbJzmFjTu2vvTtFdKQ4OYsUhxYfphxfJVLfC2Bp17sC/A5QRQuOFivRs4rgMiPg==~-1~||-1||~-1; bm_sv=431EBC22FBA0B9E6654828B1BF07D9C4~d+AgKbhhH6iHfBJPadKHtTbJbUCnr5tqw/IF6gVcieTr3Dmk/iuM4cVGK8XlKH9NX/CKW0DtQGXrLi9zACZXHwBVKmdQ1iJ8sncYZdiXsrqG9F5wNfjI+qwlzFKlwN77Zz6bOsK6uMIY8knC4Fc4HQ7JrCffU/7v2IZlbIh59yM='
 	}
 	data ={
-'object_id': rk,
-'owner_id': rk,
-'reason': '3051',
-'report_type': "user"
+	'object_id': rk,
+	'owner_id': rk,
+	'reason': '3052',
+	'report_type': "user"
 	}
 	count = 0
 	while True:
+		time.sleep(slep)
 		rq = requests.post(url, json=data, headers=headers).text
-		if '{"statusCode":0,"body":{"statusCode":0,"errMsg":"نشكرك على ملاحظاتك"},"errMsg":"نشكرك على ملاحظاتك"}' in rq:
-			count +=1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
-			time.sleep(slep)
+		if '"errMsg":"Thanks for your feedback"' in rq:
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{g} Done ✓{res}")
+		elif '{"statusCode":1,"errMsg":"parmas Missing"}' in rq:
+			raise Exception;(f"{Style.BRIGHT}{wh}{b}[{wh}{re}!{b}]{wh} {re}Failed ✘{re} ❯{wh}❯{b}❯{wh} Invalid inputs{res}")
 		else:
-			count +=1
-			os.system('cls' if os.name == 'nt' else 'clear')
-			print(f"""{Style.BRIGHT}┌╼ {b}[{re}{error}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {re}Error{res}\n{wh}│\n{wh}└╼ {b}[{g}{done}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{wh} {g}Done {res}""")
+			count += 1
+			print(f"{Style.BRIGHT}{wh}│\n├─╼{b}[{wh}{count}{b}]{wh} {trgt}{re} ❯{wh}❯{b}❯{re} Failed ✘{res}")
 
 def ttu():
 	uid = uuid.uuid4()
@@ -1525,6 +1569,8 @@ elif kieu == "2":
 		sessionId = input("""│
 ├─────╼ """+b+'['+wh+'Enter SessionID'+b+']'+re+' ❯'+wh+'❯'+b+'❯ '+wh)
 		thlathtc()
+	else:print("""│
+└──╼ """+b+'['+re+'✘'+b+']'+re+' ❯'+wh+'❯'+b+'❯'+wh+' Invalid Input')
 
 elif kieu == "3":
 	slow(Style.BRIGHT+wh+"""│
@@ -1570,6 +1616,8 @@ elif kieu == "4":
 		slep = int(input("""│
 ├────────╼ """+b+'['+wh+'Enter Sleep'+b+']'+re+' ❯'+wh+'❯'+b+'❯ '+wh))
 		ttrps()
+	else:print("""│
+└──╼ """+b+'['+re+'✘'+b+']'+re+' ❯'+wh+'❯'+b+'❯'+wh+' Invalid Input')
 
 elif kieu == "5":
 	slow(Style.BRIGHT+wh+"""│
@@ -1600,8 +1648,7 @@ elif kieu == "7":
 	send =('https://api.telegram.org/bot'+tcad+'/sendMessage?chat_id='+cadid+'&text='+rc+'\n'+mc+'*'+cad+'*'+'\n'+hy+'&parse_mode=MARKDOWN')
 	r = requests.post(send)
 	print(f"""{Style.BRIGHT}│
-├──╼ {b}[{g}✓{b}]{wh}{re} ❯{wh}❯{b}❯{wh} {wh}Done ✓{res}""")
+└──╼ {b}[{g}✓{b}]{wh}{re} ❯{wh}❯{b}❯{wh} {wh}Done ✓{res}""")
 
-else:
-	print("""│
-├──╼ """+b+'['+re+'✘'+b+']'+re+' ❯'+wh+'❯'+b+'❯'+wh+' Invalid Input')
+else:print("""│
+└──╼ """+b+'['+re+'✘'+b+']'+re+' ❯'+wh+'❯'+b+'❯'+wh+' Invalid Input')
