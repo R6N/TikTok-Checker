@@ -1046,7 +1046,7 @@ def rbaeetc():
                         'Connection': 'close',
                         'Content-Length': '25',
                         'Cookie': f'sessionid={sessionId}',
-                        "x-tt-passport-csrf-token": f"{sessiones}",
+                        "x-tt-passport-csrf-token": f"{sessionId}",
                         'x-Tt-Token': '2c593820065f9a47b9bf51281eda9604-1.0.0-1.0.0',
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'sdk-version': '2',
@@ -1195,8 +1195,6 @@ def shbhtc():
                 "Host": "www.tiktok.com",
                 "Accept-Encoding": "gzip, deflate",
                 "Cache-Control": "max-age=0"
-
-
 		             			}
 		             			cookies = {'sessionid': sessionId}
 		             			response = requests.request ("GET", url, data=payload, headers=headers ,cookies=cookies)
@@ -1213,7 +1211,7 @@ def shbhtc():
                         'Connection': 'close',
                         'Content-Length': '25',
                         'Cookie': f'sessionid={sessionId}',
-                        "x-tt-passport-csrf-token": f"{sessiones}",
+                        "x-tt-passport-csrf-token": f"{sessionId}",
                         'x-Tt-Token': '2c593820065f9a47b9bf51281eda9604-1.0.0-1.0.0',
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'sdk-version': '2',
@@ -1383,13 +1381,16 @@ def thlathtc():
                         'Connection': 'close',
                         'Content-Length': '25',
                         'Cookie': f'sessionid={sessionId}',
-                        "x-tt-passport-csrf-token": f"{sessiones}",
+                        "x-tt-passport-csrf-token": f"{sessionId}",
                         'x-Tt-Token': '2c593820065f9a47b9bf51281eda9604-1.0.0-1.0.0',
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'sdk-version': '2',
                         'passport-sdk-version': '5.12.1'
 		             				}
-		             				stts = requests.post(url, data=data, headers=headerstc).tex
+		             				data = {
+		             				'login_name': f'{fls}'
+		             				}
+		             				stts = requests.post(url, data=data, headers=headerstc).text
 		             				if '"message":"success"' in stts:
 		             					print(f"""{Style.BRIGHT}
 │
