@@ -1,6 +1,8 @@
 # TikTok-UltimatePACK
 
 ## TikTokPACK Contains
+<details><summary>TikTok-Pack Contains [Click!]</summary>
+<p>
 
 ### Without usernames list
 
@@ -27,6 +29,8 @@
 *2- Hate Speech*
 
 *3- Suicide, self-harm*
+</p>
+</details>
 
 ## How to use?
 
