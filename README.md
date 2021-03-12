@@ -1,7 +1,7 @@
 # TikTok-UltimatePACK
 
 ## TikTokPACK Contains
-<details><summary>TikTok-Pack Contains [Click!]</summary>
+##<details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
 
 ### Without usernames list
