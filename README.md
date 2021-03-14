@@ -5,6 +5,7 @@
 [![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)](https://GitHub.com/R6N/TikTok-Checker)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![repo-size](https://img.shields.io/github/repo-size/R6N/TikTok-Checker)](https://GitHub.com/R6N/TikTok-Checker)
+[![pul-req](https://img.shields.io/github/issues-pr/R6N/TikTok-Checker?&logo=github)](https://GitHub.com/R6N/TikTik-Checker)
 ## TikTokPACK Contains
 <details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
