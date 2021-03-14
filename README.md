@@ -1,5 +1,6 @@
 # TikTok-UltimatePACK
 ![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork)
+![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)
 ## TikTokPACK Contains
 <details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
