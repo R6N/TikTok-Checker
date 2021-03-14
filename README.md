@@ -3,7 +3,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/r6n/tiktok-checker/badge)](https://www.codefactor.io/repository/github/r6n/tiktok-checker)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)](https://GitHub.com/R6N/TikTok-Checker)
-[![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork)](https://GitHub.com/R6N/TikTok-Checker)
+[![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork&logo=GitHub)](https://GitHub.com/R6N/TikTok-Checker)
 [![repo-size](https://img.shields.io/github/repo-size/R6N/TikTok-Checker)](https://GitHub.com/R6N/TikTok-Checker)
 [![pul-req](https://img.shields.io/github/issues-pr/R6N/TikTok-Checker?&logo=github)](https://GitHub.com/R6N/TikTik-Checker)
 ## TikTokPACK Contains
