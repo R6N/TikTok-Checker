@@ -6,6 +6,7 @@
 [![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork&logo=GitHub)](https://GitHub.com/R6N/TikTok-Checker)
 [![repo-size](https://img.shields.io/github/repo-size/R6N/TikTok-Checker?&logo=GitHub)](https://GitHub.com/R6N/TikTok-Checker)
 [![pul-req](https://img.shields.io/github/issues-pr/R6N/TikTok-Checker?&logo=GitHub)](https://GitHub.com/R6N/TikTik-Checker)
+[![issues](https://img.shields.io/github/issues/R6N/TikTok-Checker?&label=Issues&logo=GitHub)](https://GitHub.com/R6N/TikTok-Checker)
 ## TikTokPACK Contains
 <details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
