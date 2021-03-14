@@ -1,7 +1,7 @@
 # TikTok-UltimatePACK
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub%2FR6N%2FTikTok-Checker&count_bg=%23FFCD49&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false)](https://hits.seeyoufarm.com)
-![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork)
-![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)
+[![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork)
+[![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)
 ## TikTokPACK Contains
 <details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
