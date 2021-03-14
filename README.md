@@ -3,7 +3,7 @@
 [![GitHub Forks](https://shields.io/github/forks/R6N/TikTok-Checker?label=Fork)](https://GitHub.com/R6N/TikTok-Checker)
 [![CodeFactor](https://www.codefactor.io/repository/github/r6n/tiktok-checker/badge)](https://www.codefactor.io/repository/github/r6n/tiktok-checker)
 [![GitHub Stars](https://shields.io/github/stars/R6N/TikTok-Checker?label=Star)](https://GitHub.com/R6N/TikTok-Checker)
-[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)]
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ## TikTokPACK Contains
 <details><summary>TikTok-Pack Contains [Click!]</summary>
 <p>
