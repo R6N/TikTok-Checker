@@ -62,4 +62,4 @@ $ python ttcwe.py </span></pre>
 
 ## About
 
-**Source By and J_Qatar and WeeX, Edited By ME**
+**Source By J_Qatar and WeeX, Edited By ME**
